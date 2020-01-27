@@ -1,0 +1,5 @@
+#define LINUX @LINUX@
+#define WINDOWS @WINDOWS@
+#define APPLE @APPLE@
+#define MSVC @MSVC@
+#define MINGW @MINGW@
