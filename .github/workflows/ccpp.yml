@@ -9,6 +9,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: CMake - create Makefile
-      run: cmake ./CMakeLists.txt
+      run: cmake ./../CMakeLists.txt
     - name: make 
       run: make 
