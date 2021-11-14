@@ -4,3 +4,5 @@ cmake_filesystem/.idea/
 cmake_filesystem/cmake-build-debug/
 
 cmake_filesystem/CMakeFilesystemConfig.h
+
+.idea/
