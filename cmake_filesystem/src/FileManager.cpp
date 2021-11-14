@@ -19,7 +19,10 @@ int FileManager::getNumberOfFilesHere()
     for(auto &item : fs::directory_iterator(m_path))
     {
         if(item.is_regular_file())
+        {
+            std::cout << "Path: " << item << std::endl;
             ++count;
+        }
     }
     return count;
 }

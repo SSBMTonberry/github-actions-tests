@@ -6,6 +6,7 @@
 #define CMAKE_FILESYSTEM_FILEMANAGER_H
 
 #include "../CMakeFilesystemConfig.h"
+#include <iostream>
 
 #if MSVC
 #include <filesystem>
