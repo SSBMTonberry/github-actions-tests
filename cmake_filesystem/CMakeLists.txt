@@ -48,8 +48,8 @@ configure_file (
 
 include_directories(${PROJECT_SOURCE_DIR}/external_libs/ )
 
-set(SOURCE_FILES main.cpp src/FileManager.cpp)
+set(SOURCE_FILES src/FileManager.cpp)
 
-add_executable(cmake_filesystem ${SOURCE_FILES})
-
+add_library(cmake_filesystem ${SOURCE_FILES})
+add_subdirectory(external_libs)
 add_subdirectory(tests)

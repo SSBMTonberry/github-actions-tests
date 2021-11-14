@@ -7,4 +7,9 @@ enable_testing()
 
 add_executable(cmake_filesystem_tests ${SOURCE_FILES})
 
+target_link_libraries(cmake_filesystem_tests
+        cmake_filesystem
+        Catch2::Test
+        )
+
 add_test(test_all cmake_filesystem_tests)
