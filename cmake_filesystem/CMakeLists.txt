@@ -46,10 +46,10 @@ configure_file (
         "${PROJECT_SOURCE_DIR}/CMakeFilesystemConfig.h"
 )
 
-include_directories(${PROJECT_SOURCE_DIR}/external_libs/ )
+#include_directories(${PROJECT_SOURCE_DIR}/external_libs/catch2/single_include/catch2)
+include_directories(${PROJECT_SOURCE_DIR}/external_libs)
 
 set(SOURCE_FILES src/FileManager.cpp)
 
 add_library(cmake_filesystem ${SOURCE_FILES})
-add_subdirectory(external_libs)
 add_subdirectory(tests)
