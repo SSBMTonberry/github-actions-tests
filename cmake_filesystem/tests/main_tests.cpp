@@ -6,6 +6,16 @@
 #include <catch.hpp>
 #include "../src/FileManager.h"
 
+TEST_CASE("Dummy test - SUCCEED", "[test][dummy]")
+{
+    REQUIRE(true);
+}
+
+TEST_CASE("Dummy test - FAIL", "[test][dummy]")
+{
+    REQUIRE(false);
+}
+
 TEST_CASE("Expect any file where test is ran", "[test][files]")
 {
     FileManager manager;
