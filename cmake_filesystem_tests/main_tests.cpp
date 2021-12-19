@@ -4,7 +4,7 @@
 
 #define CATCH_CONFIG_MAIN
 #include <catch.hpp>
-#include "../src/FileManager.h"
+#include "../cmake_filesystem/src/FileManager.h"
 
 TEST_CASE("Dummy test - SUCCEED", "[test][dummy]")
 {

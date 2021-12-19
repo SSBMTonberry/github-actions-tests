@@ -47,9 +47,7 @@ configure_file (
 )
 
 #include_directories(${PROJECT_SOURCE_DIR}/external_libs/catch2/single_include/catch2)
-include_directories(${PROJECT_SOURCE_DIR}/external_libs)
 
 set(SOURCE_FILES src/FileManager.cpp)
 
 add_library(cmake_filesystem ${SOURCE_FILES})
-add_subdirectory(tests)
