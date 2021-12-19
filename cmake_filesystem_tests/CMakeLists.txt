@@ -13,19 +13,19 @@ CPMFindPackage(
 #set(SOURCE_FILES main_tests.cpp)
 #add_executable(cmake_filesystem_tests ${SOURCE_FILES})
 
-add_executable(tests)
-target_sources(tests PRIVATE main_tests.cpp)
+add_executable(cmake_filesystem_tests)
+target_sources(cmake_filesystem_tests PRIVATE main_tests.cpp)
 
 if(LINUX)
-    target_link_libraries(cmake_filesystem_tests cmake_filesystem PRIVATE Catch2::Catch2 )
+    target_link_libraries(cmake_filesystem_tests PRIVATE cmake_filesystem Catch2::Catch2 )
 elseif(WIN32)
     if(MINGW)
-        target_link_libraries(cmake_filesystem_tests cmake_filesystem stdc++fs PRIVATE Catch2::Catch2 )
+        target_link_libraries(cmake_filesystem_tests PRIVATE cmake_filesystem stdc++fs Catch2::Catch2 )
     else()
-        target_link_libraries(cmake_filesystem_tests cmake_filesystem PRIVATE Catch2::Catch2 )
+        target_link_libraries(cmake_filesystem_tests PRIVATE cmake_filesystem Catch2::Catch2 )
     endif()
 elseif(APPLE)
-    target_link_libraries(cmake_filesystem_tests cmake_filesystem stdc++ /usr/local/opt/llvm/lib/libc++experimental.a /usr/local/opt/llvm/lib/libc++fs.a PRIVATE Catch2::Catch2)
+    target_link_libraries(cmake_filesystem_tests PRIVATE cmake_filesystem stdc++ /usr/local/opt/llvm/lib/libc++experimental.a /usr/local/opt/llvm/lib/libc++fs.a Catch2::Catch2)
 endif()
 
 #target_link_libraries(cmake_filesystem_tests
