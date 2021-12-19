@@ -1,7 +1,5 @@
 project(cmake_filesystem_tests LANGUAGES CXX VERSION 0.0.1)
 
-set(CMAKE_CXX_STANDARD 17)
-
 #add_library(Catch INTERFACE)
 #target_include_directories(Catch INTERFACE ${PROJECT_SOURCE_DIR}/../external_libs)
 
@@ -17,7 +15,20 @@ set(SOURCE_FILES main_tests.cpp)
 add_executable(cmake_filesystem_tests ${SOURCE_FILES})
 
 #target_link_libraries(cmake_filesystem_tests Catch cmake_filesystem)
-target_link_libraries(cmake_filesystem_tests cmake_filesystem Catch2::Catch2 )
+
+
+
+if(LINUX)
+    target_link_libraries(cmake_filesystem_tests cmake_filesystem Catch2::Catch2 )
+elseif(WIN32)
+    if(MSVC)
+        target_link_libraries(cmake_filesystem_tests cmake_filesystem Catch2::Catch2 )
+    else()
+        target_link_libraries(cmake_filesystem_tests cmake_filesystem stdc++fs Catch2::Catch2 )
+    endif()
+elseif(APPLE)
+    target_link_libraries(cmake_filesystem_tests cmake_filesystem Catch2::Catch2 stdc++ /usr/local/opt/llvm/lib/libc++experimental.a /usr/local/opt/llvm/lib/libc++fs.a)
+endif()
 
 #target_link_libraries(cmake_filesystem_tests
 #        cmake_filesystem
