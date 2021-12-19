@@ -6,20 +6,13 @@ set(suffix "${TEST_SUFFIX}")
 set(spec ${TEST_SPEC})
 set(extra_args ${TEST_EXTRA_ARGS})
 set(properties ${TEST_PROPERTIES})
-set(reporter ${TEST_REPORTER})
-set(output_dir ${TEST_OUTPUT_DIR})
-set(output_prefix ${TEST_OUTPUT_PREFIX})
-set(output_suffix ${TEST_OUTPUT_SUFFIX})
 set(script)
 set(suite)
 set(tests)
 
 function(add_command NAME)
   set(_args "")
-  # use ARGV* instead of ARGN, because ARGN splits arrays into multiple arguments
-  math(EXPR _last_arg ${ARGC}-1)
-  foreach(_n RANGE 1 ${_last_arg})
-    set(_arg "${ARGV${_n}}")
+  foreach(_arg ${ARGN})
     if(_arg MATCHES "[^-./:a-zA-Z0-9_]")
       set(_args "${_args} [==[${_arg}]==]") # form a bracket_argument
     else()
@@ -32,67 +25,28 @@ endfunction()
 # Run test executable to get list of available tests
 if(NOT EXISTS "${TEST_EXECUTABLE}")
   message(FATAL_ERROR
-    "Specified test executable '${TEST_EXECUTABLE}' does not exist"
-  )
+          "Specified test executable '${TEST_EXECUTABLE}' does not exist"
+          )
 endif()
 execute_process(
-  COMMAND ${TEST_EXECUTOR} "${TEST_EXECUTABLE}" ${spec} --list-test-names-only
-  OUTPUT_VARIABLE output
-  RESULT_VARIABLE result
-  WORKING_DIRECTORY "${TEST_WORKING_DIR}"
+        COMMAND ${TEST_EXECUTOR} "${TEST_EXECUTABLE}" ${spec} --list-test-names-only
+        OUTPUT_VARIABLE output
+        RESULT_VARIABLE result
 )
 # Catch --list-test-names-only reports the number of tests, so 0 is... surprising
 if(${result} EQUAL 0)
   message(WARNING
-    "Test executable '${TEST_EXECUTABLE}' contains no tests!\n"
-  )
+          "Test executable '${TEST_EXECUTABLE}' contains no tests!\n"
+          )
 elseif(${result} LESS 0)
   message(FATAL_ERROR
-    "Error running test executable '${TEST_EXECUTABLE}':\n"
-    "  Result: ${result}\n"
-    "  Output: ${output}\n"
-  )
+          "Error running test executable '${TEST_EXECUTABLE}':\n"
+          "  Result: ${result}\n"
+          "  Output: ${output}\n"
+          )
 endif()
 
 string(REPLACE "\n" ";" output "${output}")
-
-# Run test executable to get list of available reporters
-execute_process(
-  COMMAND ${TEST_EXECUTOR} "${TEST_EXECUTABLE}" ${spec} --list-reporters
-  OUTPUT_VARIABLE reporters_output
-  RESULT_VARIABLE reporters_result
-  WORKING_DIRECTORY "${TEST_WORKING_DIR}"
-)
-if(${reporters_result} EQUAL 0)
-  message(WARNING
-    "Test executable '${TEST_EXECUTABLE}' contains no reporters!\n"
-  )
-elseif(${reporters_result} LESS 0)
-  message(FATAL_ERROR
-    "Error running test executable '${TEST_EXECUTABLE}':\n"
-    "  Result: ${reporters_result}\n"
-    "  Output: ${reporters_output}\n"
-  )
-endif()
-string(FIND "${reporters_output}" "${reporter}" reporter_is_valid)
-if(reporter AND ${reporter_is_valid} EQUAL -1)
-  message(FATAL_ERROR
-    "\"${reporter}\" is not a valid reporter!\n"
-  )
-endif()
-
-# Prepare reporter
-if(reporter)
-  set(reporter_arg "--reporter ${reporter}")
-endif()
-
-# Prepare output dir
-if(output_dir AND NOT IS_ABSOLUTE ${output_dir})
-  set(output_dir "${TEST_WORKING_DIR}/${output_dir}")
-  if(NOT EXISTS ${output_dir})
-    file(MAKE_DIRECTORY ${output_dir})
-  endif()
-endif()
 
 # Parse output
 foreach(line ${output})
@@ -102,28 +56,20 @@ foreach(line ${output})
   foreach(char , [ ])
     string(REPLACE ${char} "\\${char}" test_name ${test_name})
   endforeach(char)
-  # ...add output dir
-  if(output_dir)
-    string(REGEX REPLACE "[^A-Za-z0-9_]" "_" test_name_clean ${test_name})
-    set(output_dir_arg "--out ${output_dir}/${output_prefix}${test_name_clean}${output_suffix}")
-  endif()
-  
   # ...and add to script
   add_command(add_test
-    "${prefix}${test}${suffix}"
-    ${TEST_EXECUTOR}
-    "${TEST_EXECUTABLE}"
-    "${test_name}"
-    ${extra_args}
-    "${reporter_arg}"
-    "${output_dir_arg}"
-  )
+          "${prefix}${test}${suffix}"
+          ${TEST_EXECUTOR}
+          "${TEST_EXECUTABLE}"
+          "${test_name}"
+          ${extra_args}
+          )
   add_command(set_tests_properties
-    "${prefix}${test}${suffix}"
-    PROPERTIES
-    WORKING_DIRECTORY "${TEST_WORKING_DIR}"
-    ${properties}
-  )
+          "${prefix}${test}${suffix}"
+          PROPERTIES
+          WORKING_DIRECTORY "${TEST_WORKING_DIR}"
+          ${properties}
+          )
   list(APPEND tests "${prefix}${test}${suffix}")
 endforeach()
 

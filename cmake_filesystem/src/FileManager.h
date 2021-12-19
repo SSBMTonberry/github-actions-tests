@@ -8,6 +8,10 @@
 //#include "../CMakeFilesystemConfig.h"
 #include <iostream>
 
+#if __clang__
+#include <mach-o/dyld.h>
+#endif
+
 #if _MSC_VER && !__INTEL_COMPILER
     #include <filesystem>
     namespace fs = std::filesystem;

@@ -17,7 +17,7 @@ jobs:
         # specify a specific compiler to build with each OS separately
         include:
           - platform_name: macos
-            os: macos-10.15
+            os: macos-10.14
             cxx: clang++
 
     steps:
