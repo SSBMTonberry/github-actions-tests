@@ -17,11 +17,33 @@ jobs:
         # specify a specific compiler to build with each OS separately
         include:
           - platform_name: macos
-            os: macos-10.14
+            os: macos-latest
             cxx: clang++
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Configure OSX 1
+        env:
+          CXX: ${{ matrix.cxx }}
+        shell: bash
+        working-directory: ${{github.workspace}}/build
+        run: sudo port install llvm-9.0
+
+      - name: Configure OSX 2
+        env:
+          CXX: ${{ matrix.cxx }}
+        shell: bash
+        working-directory: ${{github.workspace}}/build
+        run: make nuke &&  make LLVM_VERSION=9.0 LLVM_DIRECTORY=/opt/local/libexec/llvm-9.0 \ MYCC=/opt/local/libexec/llvm-9.0/bin/clang MYCXX=/opt/local/libexec/llvm-9.0/bin/clang++
+
+      - name: Configure OSX 3
+        env:
+          CXX: ${{ matrix.cxx }}
+        shell: bash
+        working-directory: ${{github.workspace}}/build
+        run: export CPLUS_INCLUDE_PATH=/opt/local/libexec/llvm-9.0/include/c++/v1:/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include
+
 
       - name: Configure CMake
         env:

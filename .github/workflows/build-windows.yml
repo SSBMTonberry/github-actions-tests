@@ -18,8 +18,9 @@ jobs:
         include:
           # NOTE: CXX seems to be ignored on Windows, but specify it anyway for consistency
           - platform_name: windows
-            os: windows-2019
+            os: windows-latest
             cxx: msvc
+
 
     steps:
       - uses: actions/checkout@v2
