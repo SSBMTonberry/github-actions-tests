@@ -8,8 +8,10 @@
 //#include "../CMakeFilesystemConfig.h"
 #include <iostream>
 
+#if __APPLE__
 #if __clang__
 #include <mach-o/dyld.h>
+#endif
 #endif
 
 #if _MSC_VER && !__INTEL_COMPILER
