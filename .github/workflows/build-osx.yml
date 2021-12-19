@@ -17,11 +17,35 @@ jobs:
         # specify a specific compiler to build with each OS separately
         include:
           - platform_name: macos
-            os: macos-11
+            os: macos-10.15
             cxx: clang++
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Configure XCode - Install
+        env:
+          CXX: ${{ matrix.cxx }}
+        # Use a bash shell so we can use the same syntax for environment variable
+        # access regardless of the host operating system
+        shell: bash
+        working-directory: ${{github.workspace}}/build
+        # Note the current convention is to use the -S and -B options here to specify source
+        # and build directories, but this is only available with CMake 3.13 and higher.
+        # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
+        run: xcode-select --install
+
+      - name: Configure XCode - Switch tools directory
+        env:
+          CXX: ${{ matrix.cxx }}
+        # Use a bash shell so we can use the same syntax for environment variable
+        # access regardless of the host operating system
+        shell: bash
+        working-directory: ${{github.workspace}}/build
+        # Note the current convention is to use the -S and -B options here to specify source
+        # and build directories, but this is only available with CMake 3.13 and higher.
+        # The CMake binaries on the Github Actions machines are (as of this writing) 3.12
+        run: sudo xcode-select --switch /Library/Developer/CommandLineTools/
 
       - name: Configure CMake
         env:
