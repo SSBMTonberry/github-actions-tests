@@ -3,7 +3,8 @@
 //
 
 #define CATCH_CONFIG_MAIN
-#include <catch.hpp>
+//#include <catch.hpp>
+#include <catch2/catch.hpp> //Since we get source from github
 #include "../cmake_filesystem/src/FileManager.h"
 
 TEST_CASE("Dummy test - SUCCEED", "[test][dummy]")
