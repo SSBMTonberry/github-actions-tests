@@ -18,7 +18,7 @@ jobs:
         include:
           - platform_name: macos
             os: macos-latest
-            cxx: clang++
+            cxx: xcode11.6
 
     steps:
       - uses: actions/checkout@v2
