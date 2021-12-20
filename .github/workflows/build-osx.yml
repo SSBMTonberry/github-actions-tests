@@ -18,7 +18,7 @@ jobs:
         include:
           - platform_name: macos
             os: macos-latest
-            cxx: clang++
+            cxx: '$(brew --prefix llvm)/bin/clang'
 
     steps:
       - uses: actions/checkout@v2
@@ -57,13 +57,6 @@ jobs:
 #        shell: bash
 #        working-directory: ${{github.workspace}}/build
 #        run: export LIBRARY_PATH=$LIBRARY_PATH:/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/lib
-
-      - name: Configure OSX tools
-        env:
-          CXX: ${{ matrix.cxx }}
-        shell: bash
-        working-directory: ${{github.workspace}}/build
-        run: sudo xcode-select --switch /Library/Developer/CommandLineTools
 
       - name: Configure CMake
         env:
