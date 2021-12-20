@@ -17,8 +17,8 @@ jobs:
         # specify a specific compiler to build with each OS separately
         include:
           - platform_name: macos
-            os: macos-latest
-            cxx: clang++
+            os: macos-11.0
+#            cxx: clang++
 
     steps:
       - uses: actions/checkout@v2
@@ -58,14 +58,14 @@ jobs:
 #        working-directory: ${{github.workspace}}/build
 #        run: export LIBRARY_PATH=$LIBRARY_PATH:/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/lib
 
-      - name: Install LLVM using Homebrew
-        run: |
-          brew update
-          brew install llvm@9
-          LDFLAGS="-L$(brew --prefix)/opt/llvm@9/lib -Wl,-rpath,$(brew --prefix)/opt/llvm@9/lib"
-          echo 'export PATH="/usr/local/opt/llvm@9/bin:$PATH"' >> /Users/runner/.bash_profile
-          export LDFLAGS="-L/usr/local/opt/llvm@9/lib"
-          export CPPFLAGS="-I/usr/local/opt/llvm@9/include"
+#      - name: Install LLVM using Homebrew
+#        run: |
+#          brew update
+#          brew install llvm@9
+#          LDFLAGS="-L$(brew --prefix)/opt/llvm@9/lib -Wl,-rpath,$(brew --prefix)/opt/llvm@9/lib"
+#          echo 'export PATH="/usr/local/opt/llvm@9/bin:$PATH"' >> /Users/runner/.bash_profile
+#          export LDFLAGS="-L/usr/local/opt/llvm@9/lib"
+#          export CPPFLAGS="-I/usr/local/opt/llvm@9/include"
 
       - name: Configure CMake
         env:
