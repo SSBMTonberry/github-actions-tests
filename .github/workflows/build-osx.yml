@@ -18,7 +18,7 @@ jobs:
         include:
           - platform_name: macos
             os: macos-latest
-            cxx: '$(brew --prefix llvm)/bin/clang'
+            cxx: clang++
 
     steps:
       - uses: actions/checkout@v2

@@ -18,7 +18,7 @@ jobs:
         include:
           - platform_name: linux
             os: ubuntu-20.04
-            cxx: g++-11
+            cxx: g++-10
 
     steps:
       - uses: actions/checkout@v2
