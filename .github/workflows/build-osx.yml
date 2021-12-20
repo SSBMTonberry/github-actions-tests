@@ -18,7 +18,7 @@ jobs:
         include:
           - platform_name: macos
             os: macos-latest
-            cpp-version: xcode11.6
+            cxx: clang++
 
     steps:
       - uses: actions/checkout@v2
@@ -57,6 +57,12 @@ jobs:
 #        shell: bash
 #        working-directory: ${{github.workspace}}/build
 #        run: export LIBRARY_PATH=$LIBRARY_PATH:/Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/lib
+
+      - name: Install LLVM using Homebrew
+        run: |
+          brew update
+          brew install llvm@9
+          LDFLAGS="-L$(brew --prefix)/opt/llvm@9/lib -Wl,-rpath,$(brew --prefix)/opt/llvm@9/lib"
 
       - name: Configure CMake
         env:
