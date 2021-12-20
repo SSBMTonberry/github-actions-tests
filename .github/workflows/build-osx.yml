@@ -63,6 +63,9 @@ jobs:
           brew update
           brew install llvm@9
           LDFLAGS="-L$(brew --prefix)/opt/llvm@9/lib -Wl,-rpath,$(brew --prefix)/opt/llvm@9/lib"
+          echo 'export PATH="/usr/local/opt/llvm@9/bin:$PATH"' >> /Users/runner/.bash_profile
+          export LDFLAGS="-L/usr/local/opt/llvm@9/lib"
+          export CPPFLAGS="-I/usr/local/opt/llvm@9/include"
 
       - name: Configure CMake
         env:
