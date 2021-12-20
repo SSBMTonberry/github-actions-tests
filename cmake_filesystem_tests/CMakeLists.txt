@@ -25,7 +25,7 @@ elseif(WIN32)
         target_link_libraries(cmake_filesystem_tests PRIVATE cmake_filesystem Catch2::Catch2 )
     endif()
 elseif(APPLE)
-    target_link_libraries(cmake_filesystem_tests PRIVATE cmake_filesystem stdc++ /usr/local/opt/llvm/lib/libc++experimental.a /usr/local/opt/llvm/lib/libc++fs.a Catch2::Catch2)
+    target_link_libraries(cmake_filesystem_tests PRIVATE cmake_filesystem c++ c++experimental libc++fs Catch2::Catch2)
 endif()
 
 #target_link_libraries(cmake_filesystem_tests
