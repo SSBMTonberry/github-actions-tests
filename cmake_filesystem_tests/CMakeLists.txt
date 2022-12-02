@@ -6,7 +6,7 @@ project(cmake_filesystem_tests LANGUAGES CXX VERSION 0.0.1)
 CPMFindPackage(
         NAME Catch2
         GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-        GIT_TAG v2.13.4
+        GIT_TAG v2.13.10
         EXCLUDE_FROM_ALL YES
 )
 
