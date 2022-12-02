@@ -2,12 +2,9 @@ name: ci-experiment
 
 on:
   push:
-    paths:
-      - "**.f90"
-      - "**.F90"
-      - "**.cmake"
-      - "**/CMakeLists.txt"
-      - ".github/workflows/ci.yml"
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
 
