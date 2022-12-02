@@ -170,9 +170,9 @@ jobs:
           ninja --version
           cmake --version
           if [[ "${{ matrix.config.build_type }}" == "Debug" ]]; then
-            cmake -G "${{ matrix.config.generator }}" -S . -B -DCMAKE_BUILD_TYPE=Debug -DGHC_COVERAGE=ON -DGHC_FILESYSTEM_TEST_COMPILE_FEATURES="${{ matrix.config.compatibility }}" -DCMAKE_INSTALL_PREFIX:PATH=install
+            cmake -G "${{ matrix.config.generator }}" -S . -DCMAKE_BUILD_TYPE=Debug -DGHC_COVERAGE=ON -DGHC_FILESYSTEM_TEST_COMPILE_FEATURES="${{ matrix.config.compatibility }}" 
           else
-            cmake -G "${{ matrix.config.generator }}" -S . -B -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} -DGHC_FILESYSTEM_TEST_COMPILE_FEATURES="${{ matrix.config.compatibility }}" -DCMAKE_INSTALL_PREFIX:PATH=install
+            cmake -G "${{ matrix.config.generator }}" -S . -DCMAKE_BUILD_TYPE=${{ matrix.config.build_type }} -DGHC_FILESYSTEM_TEST_COMPILE_FEATURES="${{ matrix.config.compatibility }}" 
           fi
 
       - name: Build project
